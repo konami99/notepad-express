@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  rest-api:
+    container_name: notepad-express-rest-api
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=dev
+    ports:
+      - '3000:3000'
+    build:
+      context: ./
+    depends_on:
+      - mongodatabase1
+  mongodatabase1:
+    image: mongo:5.0.9
+    container_name: mongodatabase1
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - ./mongo-volume:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_DATABASE=mongo-dev
