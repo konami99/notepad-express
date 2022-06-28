@@ -7,7 +7,6 @@ export async function createUserHandler(
   res: Response,
 ) {
   try {
-    console.log(`---body: ${req.body.email}`)
     const user = await createUser(req.body);
     return res.send(user);
   } catch (e: any) {

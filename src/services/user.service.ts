@@ -4,12 +4,14 @@ import UserModel, { UserDocument, UserInput } from "../models/user.model";
 
 export async function createUser({email, name}: UserInput) {
   try {
-    console.log(`input-----${email}`);
-    console.log(`input-----${name}`);
-    const user = await UserModel.create({email: email, name: name});
+    const user = await UserModel.create({email, name});
     
     return user.toJSON();
   } catch (e: any) {
     throw new Error(e);
   }
+}
+
+export async function findUser(query: FilterQuery<UserDocument>) {
+  return UserModel.findOne(query).lean();
 }
