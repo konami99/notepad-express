@@ -6,7 +6,7 @@ import responseTime from "response-time";
 import connect from "./utils/connect";
 import routes from "./routes";
 import { resourceLimits } from "worker_threads";
-import { deserializeUser } from "./middle/deserializeUser";
+import deserializeUser from "./middle/deserializeUser";
 
 const myEnv = dotenv.config();
 dotenvExpand.expand(myEnv);

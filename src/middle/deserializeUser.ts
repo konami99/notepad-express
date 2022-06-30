@@ -2,7 +2,7 @@ import { get } from "lodash";
 import { Request, Response, NextFunction } from "express";
 import { verifyJwt } from "../utils/jwt.utils";
 
-export async function deserializeUser(
+export default function deserializeUser(
   req: Request,
   res: Response,
   next: NextFunction,
