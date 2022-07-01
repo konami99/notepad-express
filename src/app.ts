@@ -6,18 +6,15 @@ import responseTime from "response-time";
 import connect from "./utils/connect";
 import routes from "./routes";
 import { resourceLimits } from "worker_threads";
-import deserializeUser from "./middle/deserializeUser";
+import deserializeUser from "./middleware/deserializeUser";
+import createServer from "./utils/server";
 
 const myEnv = dotenv.config();
 dotenvExpand.expand(myEnv);
 
 const port = 3000;
-const app = express();
+const app = createServer();
 
-app.use(express.json());
-app.use(deserializeUser);
-
-app.listen(port, async() => {
+app.listen(port, async () => {
   await connect();
-  routes(app);
-})
+});
