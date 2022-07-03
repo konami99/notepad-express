@@ -1,0 +1,17 @@
+Resources:
+  SSMGetParametersPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Sid: VisualEditor0
+            Effect: Allow
+            Action:
+              - ssm:GetParameters
+            Resource: arn:aws:ssm:*:011079945432:parameter/*
+
+Outputs:
+  SSMGetParametersPolicyArn:
+    Description: "The ARN of the ManagedPolicy to attach to the task role."
+    Value: !Ref SSMGetParametersPolicy
