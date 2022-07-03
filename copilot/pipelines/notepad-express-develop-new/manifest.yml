@@ -1,9 +1,9 @@
-# The manifest for the "notepad-express-develop" pipeline.
+# The manifest for the "notepad-express-develop-new" pipeline.
 # This YAML file defines your pipeline: the source repository it tracks and the order of the environments to deploy to.
 # For more info: https://aws.github.io/copilot-cli/docs/manifest/pipeline/
 
 # The name of the pipeline.
-name: notepad-express-develop
+name: notepad-express-develop-new
 
 # The version of the schema used in this template.
 version: 1
