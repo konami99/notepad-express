@@ -21,7 +21,13 @@ Resources:
             Effect: Allow
             Action:
               - ssm:GetParameters
-            Resource: arn:aws:ssm:*:011079945432:parameter/*
+            Resource: !Join 
+              - ''
+              - - 'arn:aws:ssm:'
+                - !Ref 'AWS::Region'
+                - ':'
+                - !Ref 'AWS::AccountId'
+                - ':parameter/*'
 
 Outputs:
   SSMGetParametersPolicyArn:
