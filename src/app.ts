@@ -12,7 +12,7 @@ import createServer from "./utils/server";
 const myEnv = dotenv.config();
 dotenvExpand.expand(myEnv);
 
-const port = 3000;
+const port = parseInt(process.env.PORT as string);
 const app = createServer();
 
 app.listen(port, async () => {
