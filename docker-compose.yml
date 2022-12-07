@@ -1,16 +1,5 @@
 version: '3.9'
 services:
-  rest-api:
-    container_name: notepad-express-rest-api
-    restart: unless-stopped
-    environment:
-      - NODE_ENV=dev
-    ports:
-      - '3000:3000'
-    build:
-      context: ./
-    depends_on:
-      - mongodatabase1
   mongodatabase1:
     image: mongo:5.0.9
     container_name: mongodatabase1
