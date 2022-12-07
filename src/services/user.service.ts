@@ -2,9 +2,11 @@ import { FilterQuery } from "mongoose";
 import { omit } from "lodash";
 import UserModel, { UserDocument, UserInput } from "../models/user.model";
 
-export async function createUser({email, name}: UserInput) {
+export async function createUser(
+  input: UserInput
+) {
   try {
-    const user = await UserModel.create({email, name});
+    const user = await UserModel.create(input);
     
     return user.toJSON();
   } catch (e: any) {
