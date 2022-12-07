@@ -22,3 +22,11 @@ export async function createUserSessionHandler(req: Request, res: Response) {
 
   return res.send({ accessToken });
 }
+
+export async function getUserSessionHandler(req: Request, res: Response) {
+  const userId = res.locals.user._id;
+
+  const sessions = await findSessions({ user: userId, valid: true });
+
+  return res.send(sessions);
+}
