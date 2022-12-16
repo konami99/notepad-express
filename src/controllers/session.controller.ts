@@ -7,6 +7,7 @@ import {
 } from "../services/session.service";
 import { validatePassword } from "../services/user.service";
 import { signJwt } from "../utils/jwt.utils";
+import { omit } from "lodash";
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   const user = await validatePassword(req.body);
@@ -15,14 +16,14 @@ export async function createUserSessionHandler(req: Request, res: Response) {
     return res.status(401).send("Invalid email or password");
   }
 
-  const session = await createSession(user._id, req.get("user-agent") || "");
+  const session = await createSession(user, req.get("user-agent") || "");
   const accessToken = signJwt(
-    { ...user, session: session._id },
+    { ...omit(user.toJSON(), 'password'), session: session._id },
     { expiresIn: config.get("accessTokenTtl") }
   )
 
   const refreshToken = signJwt(
-    { ...user, session: session._id },
+    { ...omit(user.toJSON(), 'password'), session: session._id },
     { expiresIn: config.get("refreshTokenTtl") }
   )
 

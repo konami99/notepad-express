@@ -31,7 +31,7 @@ export async function validatePassword({
 
   if (!isValid) return false;
 
-  return omit(user.toJSON(), 'password');
+  return user;
 }
 
 export async function findUser(query: FilterQuery<UserDocument>) {

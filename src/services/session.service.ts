@@ -4,9 +4,10 @@ import { FilterQuery, UpdateQuery } from "mongoose";
 import SessionModel, { SessionDocument } from "../models/session.model";
 import { findUser } from "./user.service";
 import { signJwt, verifyJwt } from "../utils/jwt.utils";
+import { UserDocument } from "../models/user.model";
 
-export async function createSession(userId: string, userAgent: string) {
-  const session = await SessionModel.create({ user: userId, userAgent })
+export async function createSession(user: UserDocument, userAgent: string) {
+  const session = await SessionModel.create({ user: user, userAgent })
 
   return session.toJSON();
 }
