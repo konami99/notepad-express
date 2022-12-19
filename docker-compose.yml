@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   mongodatabase1:
-    image: mongo:5.0.9
+    image: mongo:6.0.3
     container_name: mongodatabase1
     ports:
       - '27017-27019:27017-27019'
