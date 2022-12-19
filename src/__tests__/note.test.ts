@@ -34,7 +34,7 @@ describe("note", () => {
 
   describe("create note", () => {
     it("should return a 200 and create the note", async () => {
-      const jwt = signJwt(userPayload);
+      const jwt = signJwt(userPayload, "ACCESS_TOKEN_PRIVATE_KEY");
 
       const { statusCode, body } = await supertest(app)
         .post("/api/notes")

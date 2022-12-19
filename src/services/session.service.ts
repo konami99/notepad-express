@@ -1,5 +1,4 @@
 import { get } from "lodash";
-import config from "config";
 import { FilterQuery, UpdateQuery } from "mongoose";
 import SessionModel, { SessionDocument } from "../models/session.model";
 import { findUser } from "./user.service";
@@ -28,7 +27,7 @@ export async function reIssueAccessToken({
 }: {
   refreshToken: string;
 }) {
-  const { decoded } = verifyJwt(refreshToken);
+  const { decoded } = verifyJwt(refreshToken, "REFRESH_TOKEN_PUBLIC_KEY");
 
   if (!decoded || !get(decoded, "session")) return false;
 
@@ -42,7 +41,8 @@ export async function reIssueAccessToken({
 
   const accessToken = signJwt(
     { ...user, session: session._id },
-    { expiresIn: config.get("accessTokenTtl") }
+    "ACCESS_TOKEN_PRIVATE_KEY",
+    { expiresIn: process.env.ACCESS_TOKEN_TTL }
   );
 
   return accessToken;

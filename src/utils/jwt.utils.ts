@@ -3,10 +3,11 @@ import { decode } from "punycode";
 
 export function signJwt (
   object: Object,
+  keyName: "ACCESS_TOKEN_PRIVATE_KEY" | "REFRESH_TOKEN_PRIVATE_KEY",
   options?: jwt.SignOptions | undefined
 ) {
   const signingKey = Buffer.from(
-    process.env.ACCESS_TOKEN_PRIVATE_KEY as string,
+    process.env[keyName] as string,
     "base64",
   ).toString("ascii");
 
@@ -18,9 +19,10 @@ export function signJwt (
 
 export function verifyJwt(
   token: string,
+  keyName: "ACCESS_TOKEN_PUBLIC_KEY" | "REFRESH_TOKEN_PUBLIC_KEY"
 ) {
   const publicKey = Buffer.from(
-    process.env.ACCESS_TOKEN_PUBLIC_KEY as string, "base64").toString(
+    process.env[keyName] as string, "base64").toString(
     "ascii",
   );
 

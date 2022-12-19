@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand"
-import config from "config";
 import responseTime from "response-time";
 import connect from "./utils/connect";
 import routes from "./routes";

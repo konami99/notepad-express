@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import config from "config";
 import UserModel from "../models/user.model";
 import {
   createSession,
@@ -20,12 +19,14 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   const session = await createSession(user, req.get("user-agent") || "");
   const accessToken = signJwt(
     { ...omit(user.toJSON(), 'password'), session: session._id },
-    { expiresIn: config.get("accessTokenTtl") }
+    "ACCESS_TOKEN_PRIVATE_KEY",
+    { expiresIn: process.env.ACCESS_TOKEN_TTL }
   )
 
   const refreshToken = signJwt(
     { ...omit(user.toJSON(), 'password'), session: session._id },
-    { expiresIn: config.get("refreshTokenTtl") }
+    "REFRESH_TOKEN_PRIVATE_KEY",
+    { expiresIn: process.env.REFRESH_TOKEN_TTL }
   )
 
   return res.send({ accessToken, refreshToken });
