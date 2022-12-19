@@ -17,6 +17,12 @@ export interface NoteDocument extends NoteInput, mongoose.Document {
 
 const noteSchema = new mongoose.Schema(
   {
+    noteId: {
+      type: String,
+      required: true,
+      unique: true,
+      default: () => `product_${nanoid()}`,
+    },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     title: { type: String, required: true },
     content: { type: String, required: true },

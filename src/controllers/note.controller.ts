@@ -49,6 +49,10 @@ export async function getNoteHandler(
 
   const note = await findNote({ noteId });
 
+  console.log(userId);
+  console.log(noteId);
+  console.log(note);
+
   if (!note) {
     return res.sendStatus(404);
   }

@@ -1,7 +1,7 @@
 import { Express, Request, Response } from "express";
 import { result } from "lodash";
-import { createNoteHandler } from "./controllers/note.controller";
-import { createUserSessionHandler, getUserSessionHandler } from "./controllers/session.controller";
+import { createNoteHandler, deleteNoteHandler, getNoteHandler, updateNoteHandler } from "./controllers/note.controller";
+import { createUserSessionHandler, deleteSessionHandler, getUserSessionHandler } from "./controllers/session.controller";
 import { createUserHandler } from "./controllers/user.controller";
 import requireUser from "./middleware/requireUser";
 
@@ -17,11 +17,30 @@ function routes(app: Express) {
 
   app.get("/api/sessions", requireUser, getUserSessionHandler);
 
+  app.delete("/api/sessions", requireUser, deleteSessionHandler);
+
   app.post(
     "/api/notes",
     requireUser,
     createNoteHandler,
   )
+
+  app.put(
+    "/api/notes/:noteId",
+    requireUser,
+    updateNoteHandler
+  );
+
+  app.get(
+    "/api/notes/:noteId",
+    getNoteHandler
+  );
+
+  app.delete(
+    "/api/notes/:noteId",
+    requireUser,
+    deleteNoteHandler
+  );
 }
 
 export default routes;
