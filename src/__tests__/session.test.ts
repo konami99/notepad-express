@@ -12,11 +12,13 @@ const app = createServer();
 const userId = new mongoose.Types.ObjectId().toString();
 
 const userPayload = {
+  comparePassword: () => true,
   toJSON: () => {
     return {
       _id: userId,
       email: "test@gmail.com",
       name: "ethan",
+      password: "pwd123",
     }
   }
 };
@@ -32,6 +34,7 @@ const sessionPayload = {
 }
 
 const accessToken = "access token";
+const refreshToken = "refresh token";
 
 describe("", () => {
   it("", async () => {
@@ -48,11 +51,13 @@ describe("", () => {
     const jwtUtilsMock = jest
       .spyOn(JwtUtils, "signJwt")
       // @ts-ignore
-      .mockReturnValueOnce(accessToken);
+      .mockReturnValueOnce(accessToken)
+      .mockReturnValueOnce(refreshToken);
 
     const req = {
       body: {
-        email: "test@gmail.com"
+        email: "test@gmail.com",
+        password: "pwd123",
       },
       get: () => {
         return "a user agent";
@@ -70,6 +75,7 @@ describe("", () => {
 
     expect(send).toHaveBeenCalledWith({
       accessToken: accessToken,
+      refreshToken: refreshToken,
     });
   });
 });

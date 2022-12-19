@@ -48,6 +48,7 @@ describe("note", () => {
         _id: expect.any(String),
         createdAt: expect.any(String),
         updatedAt: expect.any(String),
+        noteId: expect.any(String),
         title: "shopping list",
         content: "carrots, bananas, oranges",
         user: expect.any(String),
