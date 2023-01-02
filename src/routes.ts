@@ -33,6 +33,7 @@ function routes(app: Express) {
 
   app.get(
     "/api/notes/:noteId",
+    requireUser,
     getNoteHandler
   );
 
