@@ -16,6 +16,8 @@ const userPayload = {
 const userInput = {
   email: "test@gmail.com",
   name: "ethan",
+  password: "password123456",
+  passwordConfirmation: "password123456",
 };
 
 describe("creating users", () => {
