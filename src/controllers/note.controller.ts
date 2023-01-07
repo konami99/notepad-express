@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { CreateNoteInput, DeleteNoteInput, GetNoteInput, UpdateNoteInput } from "../schema/note.schema";
 import {
   createNote,
   deleteNote,
@@ -7,7 +8,7 @@ import {
 } from "../services/note.service";
 
 export async function createNoteHandler(
-  req: Request,
+  req: Request<{}, {}, CreateNoteInput["body"]>,
   res: Response,
 ) {
   const userId = res.locals.user._id;
@@ -17,7 +18,7 @@ export async function createNoteHandler(
 }
 
 export async function updateNoteHandler(
-  req: Request,
+  req: Request<UpdateNoteInput["params"], {}, UpdateNoteInput["body"]>,
   res: Response
 ) {
   const userId = res.locals.user._id;
@@ -41,17 +42,13 @@ export async function updateNoteHandler(
 }
 
 export async function getNoteHandler(
-  req: Request,
+  req: Request<GetNoteInput["params"]>,
   res: Response
 ) {
   const userId = res.locals.user._id;
   const noteId = req.params.noteId;
 
   const note = await findNote({ noteId });
-
-  console.log(userId);
-  console.log(noteId);
-  console.log(note);
 
   if (!note) {
     return res.sendStatus(404);
@@ -61,7 +58,7 @@ export async function getNoteHandler(
 }
 
 export async function deleteNoteHandler(
-  req: Request,
+  req: Request<DeleteNoteInput["params"]>,
   res: Response
 ) {
   const userId = res.locals.user._id;

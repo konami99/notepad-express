@@ -18,7 +18,6 @@ export async function findNote(
   options: QueryOptions = { lean: true }
 ) {
   try {
-    console.log(query);
     const result = await NoteModel.findOne(query, {}, options);
     return result;
   } catch (e: any) {

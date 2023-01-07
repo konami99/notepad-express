@@ -7,6 +7,7 @@ import requireUser from "./middleware/requireUser";
 import { createUserSchema } from "./schema/user.schema";
 import validateResource from "./middleware/validateResource";
 import { createSessionSchema } from "./schema/session.schema";
+import { createNoteSchema, deleteNoteSchema, getNoteSchema, updateNoteSchema } from "./schema/note.schema";
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -25,25 +26,25 @@ function routes(app: Express) {
 
   app.post(
     "/api/notes",
-    requireUser,
+    [requireUser, validateResource(createNoteSchema)],
     createNoteHandler,
   )
 
   app.put(
     "/api/notes/:noteId",
-    requireUser,
+    [requireUser, validateResource(updateNoteSchema)],
     updateNoteHandler
   );
 
   app.get(
     "/api/notes/:noteId",
-    requireUser,
+    [requireUser, validateResource(getNoteSchema)],
     getNoteHandler
   );
 
   app.delete(
     "/api/notes/:noteId",
-    requireUser,
+    [requireUser, validateResource(deleteNoteSchema)],
     deleteNoteHandler
   );
 }
