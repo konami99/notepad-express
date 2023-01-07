@@ -6,6 +6,7 @@ import { createUserHandler } from "./controllers/user.controller";
 import requireUser from "./middleware/requireUser";
 import { createUserSchema } from "./schema/user.schema";
 import validateResource from "./middleware/validateResource";
+import { createSessionSchema } from "./schema/session.schema";
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -14,6 +15,7 @@ function routes(app: Express) {
 
   app.post(
     "/api/sessions",
+    validateResource(createSessionSchema),
     createUserSessionHandler,
   )
 
