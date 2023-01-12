@@ -8,8 +8,12 @@ import {
 import { validatePassword } from "../services/user.service";
 import { signJwt } from "../utils/jwt.utils";
 import { omit } from "lodash";
+import { CreateSessionInput } from "../schema/session.schema";
 
-export async function createUserSessionHandler(req: Request, res: Response) {
+export async function createUserSessionHandler(
+  req: Request<{}, {}, CreateSessionInput["body"]>,
+  res: Response
+) {
   const user = await validatePassword(req.body);
 
   if (!user) {
